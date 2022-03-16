@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
@@ -19,7 +20,6 @@
   "author": "",
   "license": "ISC",
   "description": "��#\u0000 \u0000A\u0000G\u0000V\u0000E\u0000N\u0000T\u0000U\u0000R\u0000E\u0000_\u0000A\u0000P\u0000I\u0000\r\u0000 \u0000",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Panthil2812/AGVENTURE_API.git"
