@@ -9,6 +9,7 @@ module.exports = {
   //GET ALL USER INFORMATION
   getAllUser: async (req, res) => {
     try {
+      console.log(" getAllUser : calling .....");
       const result = await User.find(
         { d_flag: false, type: { $ne: 2 } },
         {
@@ -25,17 +26,20 @@ module.exports = {
         message: "successfully all user information",
         data: result,
       });
+      console.log("getAllUser : successfully ....");
     } catch (error) {
       res.send({
         status: res.statusCode,
         message: error.message,
         data: 1,
       });
+      console.log("getAllUser : error message: ", error.message);
     }
   },
   //GET ALL Admin INFORMATION
   getAllAdmin: async (req, res) => {
     try {
+      console.log("getAllAdmin : calling .....");
       const result = await User.find(
         { d_flag: false, type: 2 },
         {
@@ -52,12 +56,14 @@ module.exports = {
         message: "successfully all Admin information",
         data: result,
       });
+      console.log("getAllAdmin : successfully ....");
     } catch (error) {
       res.send({
         status: res.statusCode,
         message: error.message,
         data: 1,
       });
+      console.log("getAllAdmin: error message: ", error.message);
     }
   },
   //CREATE USER ACCOUNT
@@ -65,9 +71,11 @@ module.exports = {
     const email_id = req.body.email_id;
     // console.log("email id : " + email_id);
     const c = await User.countDocuments({ email_id: email_id, d_flag: false });
-    if (c == 0) {
-      try {
-        // req.body.password = cry.encrypt(req.body.password);
+    console.log("createuser : calling");
+
+    try {
+      // req.body.password = cry.encrypt(req.body.password);
+      if (c == 0) {
         const user = new User(req.body);
 
         const result = await user.save();
@@ -75,25 +83,28 @@ module.exports = {
           status: res.statusCode,
           message: "successfully account created",
         });
-      } catch (error) {
-        // console.log(error);
+        console.log("createuser : successfully ...");
+      } else {
+        //next(createError(500, "email already exists"));
         res.send({
-          status: res.statusCode,
-          message: "Not created your account",
+          status: 500,
+          message: "email is already added",
         });
+        console.log("createuser : email is already added ......");
       }
-    } else {
-      // res.statusCode = 405;
-      //next(createError(500, "email already exists"));
+    } catch (error) {
+      // console.log(error);
       res.send({
-        status: 500,
-        message: "email is already added",
+        status: res.statusCode,
+        message: "Not created your account",
       });
+      console.log("createuser : error message : ", error.message);
     }
   },
   // FIND USER USING EMAIL ID AND PASSWORD
   findUser: async (req, res) => {
     try {
+      console.log("findUser: calling..............");
       const result = await User.findOne(
         {
           email_id: req.body.email_id,
@@ -116,18 +127,27 @@ module.exports = {
           token: token,
           data: result,
         });
+        console.log("findUser : successfully ....");
       } else {
         res.send({
           status: 500,
-          message: "email not find",
+          message: "email not found",
           data: 1,
         });
+        console.log("findUser : email not found ......");
       }
-    } catch (error) {}
+    } catch (error) {
+      res.send({
+        status: 504,
+        message: "some error in api ",
+      });
+      console.log("findUser: error message: ", error.message);
+    }
   },
   //UPDATE USER DATA
   updateUser: async (req, res, next) => {
     try {
+      console.log("updateUser : calling .....");
       const id = req.body._id;
       let newQuery = JSON.parse(JSON.stringify(req.body));
 
@@ -145,21 +165,25 @@ module.exports = {
           status: 404,
           message: "User does not exist.",
         });
+        console.log("updateUser : User does not exist. ......");
       }
       res.send({
         status: res.statusCode,
         message: "successfully updated user data",
         data: result,
       });
+      console.log("updateUser : successfully ....");
     } catch (error) {
       res.send({
         status: 504,
         message: "User does not updated.",
       });
+      console.log("updateUser: error message: ", error.message);
     }
   },
   //DELETE USER USING USER ID
   deleteUserById: async (req, res, next) => {
+    console.log("deleteUserById : calling .....");
     try {
       const id = req.params.id;
 
@@ -167,9 +191,10 @@ module.exports = {
       if (!result) {
         res.send({
           status: 500,
-          message: "Your email not find",
+          message: "Your email not found",
           data: 0,
         });
+        console.log("deleteUserById : Your email not found ......");
       } else {
         const data = await Products.deleteMany({ vendor_id: id });
         res.send({
@@ -177,18 +202,21 @@ module.exports = {
           message: "successfully deleted information ",
           data: 1,
         });
+        console.log("deleteUserById : successfully ....");
       }
     } catch (error) {
       res.send({
         status: res.statusCode,
-        message: "successfully deleted information ",
+        message: "error deleted information ",
         data: id,
       });
+      console.log("deleteUserById: error message: ", error.message);
     }
     // res.send("deleting a single product ")
   },
   //FORGET PASSWORD USING USER ID
   forgetPassword: async (req, res, next) => {
+    console.log("forgetPassword : calling .....");
     try {
       let newQuery = JSON.parse(JSON.stringify(req.body));
       const option = { new: true };
@@ -205,23 +233,27 @@ module.exports = {
           status: 500,
           message: "User does not exist.",
         });
+        console.log("forgetPassword : User does not exist. ......");
       } else {
         res.send({
           status: res.statusCode,
           message: "successfully updated user data",
           data: 1,
         });
+        console.log("forgetPassword : successfully ....");
       }
     } catch (error) {
       res.send({
         status: 504,
         message: "User does not forget password.",
       });
+      console.log("forgetPassword: error message: ", error.message);
     }
   },
 
   //find user by id
   findUserById: async (req, res, next) => {
+    console.log("findUserById : calling .....");
     try {
       const id = req.params.id;
 
@@ -233,23 +265,26 @@ module.exports = {
       if (!result) {
         res.send({
           status: 500,
-          message: "successfully find user information",
+          message: "not found user information",
           data: 0,
         });
+        console.log("findUserById: not found user information ......");
+      } else {
+        res.send({
+          status: req.statusCode,
+          message: "successfully find user information",
+          data: result,
+        });
+        console.log(" findUserById : successfully ....");
       }
-      res.send({
-        status: "SUCCESSFULL",
-        message: "successfully find user information",
-        data: result,
-      });
     } catch (error) {
-      // console.log(error.message)
       if (error instanceof Mongoose.CastError) {
         res.send({
           status: req.statusCode,
           message: "please try again",
           data: result,
         });
+        console.log("findUserById : error message: ", error.message);
       }
     }
   },
