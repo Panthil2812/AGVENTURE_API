@@ -15,6 +15,10 @@ const PORT = process.env.PORT || 5050;
 const UserRouter = require("./Routes/user.routes");
 app.use("/", UserRouter);
 
+//Products Router
+const ProductsRouter = require("./Routes/products.routes");
+app.use("/", ProductsRouter);
+
 app.listen(PORT, () => {
   console.log("Server Started on port http://localhost:" + PORT + "/");
   console.log(process.env.MONGODB_URL);

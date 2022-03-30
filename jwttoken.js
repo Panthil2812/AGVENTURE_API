@@ -6,7 +6,7 @@ const jwtauth = (req, res, next) => {
   try {
     const token = req.headers.authorization.toString().split(" ")[1];
     option = { expiresIn: 60 * 60 * 24 };
-    ans = jwt.verify(token, "shhhhh", option);
+    ans = jwt.verify(token, "agventure", option);
     next();
   } catch (error) {
     next(createError(422, error.message));

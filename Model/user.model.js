@@ -6,11 +6,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  first_name: {
-    type: String,
-    required: true,
-  },
-  last_name: {
+  full_name: {
     type: String,
     required: true,
   },
@@ -20,10 +16,6 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
-  },
-  gender: {
-    type: Number,
     required: true,
   },
   type: {
@@ -40,7 +32,6 @@ const UserSchema = new Schema({
   },
   address: {
     type: String,
-    required: true,
   },
   phone: {
     type: Number,
@@ -61,5 +52,5 @@ const UserSchema = new Schema({
     default: Date.now,
   },
 });
-const User = mongoose.model("user", UserSchema);
+const User = mongoose.model("Users", UserSchema);
 module.exports = User;
