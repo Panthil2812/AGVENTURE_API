@@ -37,7 +37,7 @@ module.exports = {
       console.log("getAllProducts : error message: ", error.message);
     }
   },
-  //CREATE USER ACCOUNT
+  //CREATE PRODUCT
   createProducts: async (req, res) => {
     try {
       console.log("createProducts  : calling .....");
@@ -57,6 +57,42 @@ module.exports = {
         message: "Not added your product",
       });
       console.log("createProducts : error message: ", error.message);
+    }
+  },
+  //UPDATE PRODUCTS
+  updateProducts: async (req, res) => {
+    try {
+      console.log("updateProducts  : calling .....");
+      const id = req.body.pro_id;
+      let newQuery = JSON.parse(JSON.stringify(req.body));
+      const option = { new: true };
+      newQuery.updated_date = new Date();
+      // console.log(newQuery)
+      const result = await Products.findOneAndUpdate(
+        { _id: id, d_flag: false },
+        newQuery,
+        option
+      );
+      if (!result) {
+        res.send({
+          status: res.statusCode,
+          message: "products id not found",
+        });
+        console.log("updateProducts : products id not found ....");
+      } else {
+        res.send({
+          status: res.statusCode,
+          message: "successfully added Product",
+        });
+        console.log("updateProducts : successfully ....");
+      }
+    } catch (error) {
+      // console.log(error);
+      res.send({
+        status: res.statusCode,
+        message: "Not added your product",
+      });
+      console.log("updateProducts : error message: ", error.message);
     }
   },
   //GET PRODUCTS USING VENDOR ID
