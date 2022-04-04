@@ -18,7 +18,6 @@ module.exports = {
         {
           __v: 0,
           updated_date: 0,
-          create_date: 0,
           d_flag: 0,
         }
       ).sort({ pro_name: 1 });

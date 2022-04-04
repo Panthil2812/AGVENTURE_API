@@ -9,6 +9,9 @@ app.use(express.json());
 //GET  :all Products data
 router.get("/products/fetch_all_products", token, db.getAllProducts);
 
+//GET :all products Data without token
+router.get("/products/fetch_all_products_without_token", db.getAllProducts);
+
 //POST : add new products in database
 router.post("/products/add_product", token, db.createProducts);
 
