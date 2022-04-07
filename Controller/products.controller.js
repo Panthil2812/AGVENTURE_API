@@ -1,4 +1,5 @@
 const Products = require("../Model/products.model");
+const User = require("../Model/user.model");
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -34,6 +35,89 @@ module.exports = {
         data: 1,
       });
       console.log("getAllProducts : error message: ", error.message);
+    }
+  },
+  //GET PRODUCTS INFORMATION BY PRO_ID
+  getProductsForPage: async (req, res) => {
+    try {
+      console.log("getProductsForPage  : calling .....");
+
+      const id = req.params.id;
+      const result1 = await Products.find(
+        {
+          _id: id,
+          d_flag: false,
+        },
+        { d_flag: 0, create_date: 0, __v: 0 }
+      );
+      const result2 = await Products.find(
+        {
+          vendor_id: result1[0].vendor_id,
+          _id: { $ne: id },
+          d_flag: false,
+        },
+        { d_flag: 0, create_date: 0, __v: 0 }
+      );
+      const result3 = await Products.find(
+        {
+          pro_category: result1[0].pro_category,
+          vendor_city: result1[0].vendor_city,
+          vendor_id: { $ne: result1[0].vendor_id },
+          d_flag: false,
+        },
+        { d_flag: 0, create_date: 0, __v: 0 }
+      );
+      res.send({
+        status: res.statusCode,
+        message: "successfully list get products",
+        product: result1[0],
+        data: result2,
+        related: result3,
+      });
+      console.log("getProductsForPage : successfully ....");
+    } catch (error) {
+      res.send({
+        status: res.statusCode,
+        message: "please try again",
+        data: 1,
+      });
+      console.log("getProductsForPage : error message: ", error.message);
+    }
+  },
+  //GET VENDOR INFORMATION BY PRO_ID
+  getVendorForPage: async (req, res) => {
+    try {
+      console.log("getVendorForPage  : calling .....");
+
+      const id = req.params.id;
+      const result1 = await User.find(
+        {
+          _id: id,
+          d_flag: false,
+        },
+        { d_flag: 0, create_date: 0, __v: 0 }
+      );
+      const result2 = await Products.find(
+        {
+          vendor_id: id,
+          d_flag: false,
+        },
+        { d_flag: 0, create_date: 0, __v: 0 }
+      );
+      res.send({
+        status: res.statusCode,
+        message: "successfully list get products",
+        vendor: result1[0],
+        data: result2,
+      });
+      console.log("getVendorForPage : successfully ....");
+    } catch (error) {
+      res.send({
+        status: res.statusCode,
+        message: "please try again",
+        data: 1,
+      });
+      console.log("getVendorForPage : error message: ", error.message);
     }
   },
   //CREATE PRODUCT
