@@ -1,29 +1,18 @@
 const mongoose = require("mongoose");
+const { stringify } = require("nodemon/lib/utils");
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({
+const CartSchema = new Schema({
+  cart_id: {
+    type: String,
+    required: true,
+  },
   vendor_id: {
     type: String,
     required: true,
   },
-  vendor_name: {
+  pro_id: {
     type: String,
-    required: true,
-  },
-  vendor_email_id: {
-    type: String,
-    required: true,
-  },
-  vendor_city: {
-    type: String,
-    required: true,
-  },
-  vendor_state: {
-    type: String,
-    required: true,
-  },
-  vendor_phone: {
-    type: Number,
     required: true,
   },
   pro_name: {
@@ -38,14 +27,6 @@ const ProductSchema = new Schema({
     type: Number,
     default: 1,
   },
-  sdescription: {
-    type: String,
-    required: true,
-  },
-  ldescription: {
-    type: String,
-    required: true,
-  },
   pro_image: {
     type: String,
     required: true,
@@ -58,31 +39,17 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
-  pro_sell_price: {
+  total_price: {
     type: Number,
-    required: true,
-  },
-  pro_stock: {
-    type: String,
-    required: true,
-  },
-  pro_hsn: {
-    type: String,
-    required: true,
-  },
-  d_flag: {
-    type: Boolean,
-    default: false,
-  },
-  updated_date: {
-    type: Date,
+    default: 0,
   },
   create_date: {
     type: Date,
     default: Date.now,
   },
+  expire_at: { type: Date, default: Date.now, expires: 60 * 60 * 24 },
 });
 // ProductSchema.index({ pro_name: "text", pro_category: "text" });
-const Products = mongoose.model("Products", ProductSchema);
+const Products = mongoose.model("Cart", CartSchema);
 
 module.exports = Products;

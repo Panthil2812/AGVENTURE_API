@@ -9,6 +9,9 @@ app.use(express.json());
 //GET  :all user data
 router.get("/users/fetch_users", token, db.getAllUser);
 
+//GET  :all vendor data
+router.get("/vendor/fetch_vendor", db.getAllVendor);
+
 //GET  :all Admin data
 router.get("/admin/fetch_admin", token, db.getAllAdmin);
 

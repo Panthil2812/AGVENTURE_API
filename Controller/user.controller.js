@@ -36,6 +36,36 @@ module.exports = {
       console.log("getAllUser : error message: ", error.message);
     }
   },
+  //GET ALL VENDOR INFORMATION
+  getAllVendor: async (req, res) => {
+    try {
+      console.log(" getAllVendor : calling .....");
+      const result = await User.find(
+        { d_flag: false, type: 1 },
+        {
+          __v: 0,
+          date: 0,
+          updated_date: 0,
+          password: 0,
+          create_date: 0,
+          d_flag: 0,
+        }
+      ).sort({ full_name: 1 });
+      res.send({
+        status: res.statusCode,
+        message: "successfully all vendor information",
+        data: result,
+      });
+      console.log("getAllVendor : successfully ....");
+    } catch (error) {
+      res.send({
+        status: res.statusCode,
+        message: error.message,
+        data: 1,
+      });
+      console.log("getAllVendor : error message: ", error.message);
+    }
+  },
   //GET ALL Admin INFORMATION
   getAllAdmin: async (req, res) => {
     try {

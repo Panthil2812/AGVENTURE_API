@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const cors = require('cors')
-const createError = require('http-errors')
+const cors = require("cors");
+const createError = require("http-errors");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors())
+app.use(cors());
 console.log("panthil malaviya");
 // Database connection
 require("./initdb")();
@@ -18,6 +18,10 @@ app.use("/", UserRouter);
 //Products Router
 const ProductsRouter = require("./Routes/products.routes");
 app.use("/", ProductsRouter);
+
+//Cart Router
+const CartRouter = require("./Routes/cart.routes");
+app.use("/", CartRouter);
 
 app.listen(PORT, () => {
   console.log("Server Started on port http://localhost:" + PORT + "/");
