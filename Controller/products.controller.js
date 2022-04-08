@@ -20,6 +20,7 @@ module.exports = {
           __v: 0,
           updated_date: 0,
           d_flag: 0,
+          create_date: 0,
         }
       ).sort({ pro_name: 1 });
       res.send({
@@ -48,7 +49,7 @@ module.exports = {
           _id: id,
           d_flag: false,
         },
-        { d_flag: 0, create_date: 0, __v: 0 }
+        { __v: 0, updated_date: 0, d_flag: 0, create_date: 0 }
       );
       const result2 = await Products.find(
         {
@@ -56,7 +57,7 @@ module.exports = {
           _id: { $ne: id },
           d_flag: false,
         },
-        { d_flag: 0, create_date: 0, __v: 0 }
+        { __v: 0, updated_date: 0, d_flag: 0, create_date: 0 }
       );
       const result3 = await Products.find(
         {
@@ -65,7 +66,7 @@ module.exports = {
           vendor_id: { $ne: result1[0].vendor_id },
           d_flag: false,
         },
-        { d_flag: 0, create_date: 0, __v: 0 }
+        { __v: 0, updated_date: 0, d_flag: 0, create_date: 0 }
       );
       res.send({
         status: res.statusCode,
@@ -95,7 +96,7 @@ module.exports = {
           _id: id,
           d_flag: false,
         },
-        { d_flag: 0, create_date: 0, __v: 0 }
+        { __v: 0, updated_date: 0, d_flag: 0, create_date: 0 }
       );
       const result2 = await Products.find(
         {
@@ -189,7 +190,7 @@ module.exports = {
           vendor_id: id,
           d_flag: false,
         },
-        { d_flag: 0, create_date: 0, __v: 0 }
+        { __v: 0, updated_date: 0, d_flag: 0, create_date: 0 }
       );
       if (result != null) {
         res.send({

@@ -4,7 +4,9 @@ const cors = require("cors");
 const createError = require("http-errors");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use(cors());
 console.log("panthil malaviya");
 // Database connection
@@ -19,9 +21,13 @@ app.use("/", UserRouter);
 const ProductsRouter = require("./Routes/products.routes");
 app.use("/", ProductsRouter);
 
-//Cart Router
-const CartRouter = require("./Routes/cart.routes");
-app.use("/", CartRouter);
+// //Cart Router
+// const BillRouter = require("./Routes/bill.routes");
+// app.use("/", BillRouter);
+
+//Order Router
+const OrderRouter = require("./Routes/order.routes");
+app.use("/", OrderRouter);
 
 app.listen(PORT, () => {
   console.log("Server Started on port http://localhost:" + PORT + "/");
