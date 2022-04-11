@@ -21,9 +21,9 @@ app.use("/", UserRouter);
 const ProductsRouter = require("./Routes/products.routes");
 app.use("/", ProductsRouter);
 
-// //Cart Router
-// const BillRouter = require("./Routes/bill.routes");
-// app.use("/", BillRouter);
+//Auction Router
+const Auction = require("./Routes/auction.routes");
+app.use("/", Auction);
 
 //Order Router
 const OrderRouter = require("./Routes/order.routes");
