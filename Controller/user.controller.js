@@ -100,7 +100,8 @@ module.exports = {
   createUser: async (req, res) => {
     const email_id = req.body.email_id;
     // console.log("email id : " + email_id);
-    const c = await User.countDocuments({ email_id: email_id, d_flag: false });
+    // const c = await User.countDocuments({ email_id: email_id, d_flag: false });
+    const c = 0;
     console.log("createuser : calling");
 
     try {
