@@ -31,5 +31,4 @@ app.use("/", OrderRouter);
 
 app.listen(PORT, () => {
   console.log("Server Started on port http://localhost:" + PORT + "/");
-  console.log(process.env.MONGODB_URL);
 });
