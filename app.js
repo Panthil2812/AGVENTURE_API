@@ -30,5 +30,5 @@ const OrderRouter = require("./Routes/order.routes");
 app.use("/", OrderRouter);
 
 app.listen(PORT, () => {
-  console.log("Server Started on port http://localhost:" + PORT + "/");
+  console.log("Server Started on port : ", PORT );
 });
